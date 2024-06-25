@@ -1,2 +1,1 @@
-# test_limitations
-testing github/octokit limitations. 
+this branch is just testing the limitations for the raw size of the commit, small messages.
