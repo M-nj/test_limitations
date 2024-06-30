@@ -47,6 +47,7 @@ jobs:
           git config --global user.name "cvelistV5 Github Action - optimized"
           git remote set-url origin https://${GITHUB_TOKEN}@github.com/${{github.repository}}.git
           # evaluate the last fetch time
+          echo `$CVES_BASE_DIRECTORY/delta.json`
           echo `$(cat $CVES_BASE_DIRECTORY/delta.json)`
           echo `$(fromJson(cat $CVES_BASE_DIRECTORY/delta.json))`
           #LAST_FETCH_TIME=$(jq -c . < $CVES_BASE_DIRECTORY/delta.json)" >> $GITHUB_ENV
