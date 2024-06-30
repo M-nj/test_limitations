@@ -47,10 +47,14 @@ jobs:
           git config --global user.name "cvelistV5 Github Action - optimized"
           git remote set-url origin https://${GITHUB_TOKEN}@github.com/${{github.repository}}.git
           # evaluate the last fetch time
-          echo `$CVES_BASE_DIRECTORY/delta.json`
-          echo `$(cat $CVES_BASE_DIRECTORY/delta.json)`
-          echo `$(fromJson(cat $CVES_BASE_DIRECTORY/delta.json))`
-          #LAST_FETCH_TIME=$(jq -c . < $CVES_BASE_DIRECTORY/delta.json)" >> $GITHUB_ENV
+          export DELTAFILE=`$CVES_BASE_DIRECTORY/delta.json`
+          echo "$DELTAFILE" >> $GITHUB_OUTPUT
+          export DELTADATA=$(cat $CVES_BASE_DIRECTORY/delta.json)
+          echo "$DELTADATA" >> $GITHUB_OUTPUT
+          export DELTACONTENT = fromJson($DELTADATA)
+          echo "$DELTACONTENT"  >> $GITHUB_OUTPUT
+          export START_TS=$(jq -c .fetchTime <  < $CVES_BASE_DIRECTORY/delta.json)
+          echo "$START_TS" >> $GITHUB_OUTPUT
           #node ./.github/workflows/dist/index.js update ${{ github.event.inputs.params }} 
           #git push
       # - name: output
